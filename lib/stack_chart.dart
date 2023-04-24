@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 
 class MacStackChart extends StatelessWidget {
   List<dynamic> booked_status = [];
-  // List<ChartData> data_value = [];
+  // List<ChartData> data_value = [];\
+  var data = "impromptu";
 
   var onPressed;
   // final Widget child;
@@ -45,8 +46,8 @@ class MacStackChart extends StatelessWidget {
                     scrollDirection: Axis.vertical,
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: 6,
-                    itemBuilder: (context, index1) {
-                      return stackWidget(6, context);
+                    itemBuilder: (context, data) {
+                      return stackWidget(data, context);
                     },
                   ),
                 );
@@ -57,9 +58,9 @@ class MacStackChart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                  margin: EdgeInsetsDirectional.all(10),
-                  width: MediaQuery.of(context).size.width * 0.05,
-                  height: 20,
+                margin: EdgeInsetsDirectional.all(10),
+                width: MediaQuery.of(context).size.width * 0.05,
+                height: 20,
                 color: Colors.pink,
               ),
               Text(
@@ -85,9 +86,9 @@ class MacStackChart extends StatelessWidget {
         margin: EdgeInsetsDirectional.all(10),
         width: MediaQuery.of(context).size.width * 0.05,
         height: 20,
-        color: data['type'] == 'impromptu'
+        color: data == 'impromptu'
             ? Colors.orange
-            : data['type'] == 'Expired'
+            : data == 'Expired'
                 ? Colors.grey
                 : Colors.pink);
   }
