@@ -60,7 +60,8 @@ class MacStackChart extends StatelessWidget {
                   margin: EdgeInsetsDirectional.all(10),
                   width: MediaQuery.of(context).size.width * 0.05,
                   height: 20,
-                  color: Colors.pink),
+                color: Colors.pink,
+              ),
               Text(
                 "Trym'd Booking",
               ),
