@@ -1,277 +1,322 @@
 library stack_chart;
 
 export 'src/stack_chart_base.dart';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class MacStackChart extends StatelessWidget {
-  List<dynamic> booked_status = [];
-  final chartTitle;
-  final data = ["impromptu"];
-  MacStackChart({
-    Key? key,
-    this.chartTitle
-  })
-  : super(key: key);
+  final List<Map<String, dynamic>> chartData;
+  final String chartTitle;
+  final TextStyle? style;
+  final Map<String, dynamic> valueOfOne;
+  final List<Map<String, dynamic>> onlineData;
+  final double? containerHeight;
+  final double? containerWidth;
+  final String? dateFormat;
+
+  MacStackChart(
+      {Key? key,
+      required this.chartTitle,
+      this.style,
+      required this.chartData,
+      required this.onlineData,
+      required this.valueOfOne,
+      this.containerHeight,
+      this.containerWidth,
+      this.dateFormat
+      })
+      : super(key: key);
+
+  int columnContainersCount = 6;
 
   @override
   Widget build(BuildContext context) {
+    columnContainersCount = chartData.isEmpty ? 0 : 6;
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
       child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                    child: Text(
-                      this.chartTitle,
-                    ),
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                  child: Text(
+                    chartTitle,
+                    style: style ??
+                        TextStyle(
+                          fontFamily: "geometric sans-serif",
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(
-                30,20,30,
-                0,
-              ),
-              child: Material(
-                color: const Color(0xFFFFFFFF),
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.70,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      color: const Color(0xFFFFFFFF),
-                      borderRadius: BorderRadius.circular(7),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF000000).withAlpha(60),
-                          blurRadius: 6.0,
-                          spreadRadius: 0.0,
-                          offset: const Offset(
-                            0.0,
-                            3.0,
-                          ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.all(20),
+            child: Material(
+              color: const Color(0xFFFFFFFF),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(7),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                child: Container(
+                  height: columnContainersCount == 6
+                      ? MediaQuery.of(context).size.height * 0.72
+                      : columnContainersCount == 5
+                          ? MediaQuery.of(context).size.height * 0.52
+                          : columnContainersCount == 4
+                              ? MediaQuery.of(context).size.height * 0.46
+                              : columnContainersCount == 0
+                                  ? MediaQuery.of(context).size.height * 0.50
+                                  : MediaQuery.of(context).size.height * 0.44,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    color: const Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(7),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF000000).withAlpha(60),
+                        blurRadius: 6.0,
+                        spreadRadius: 0.0,
+                        offset: const Offset(
+                          0.0,
+                          3.0,
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.40,
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                physics: const ClampingScrollPhysics(),
-                                itemCount: 6,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.fromLTRB(
-                                            0,
-                                            20,
-                                            0,
-                                            0),
-                                        child: Text(
-                                          "7 AM",
-                                          style: TextStyle(
-                                            fontFamily: 'geometric sans-serif',
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsetsDirectional.all(5),
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.10,
-                                        child: ListView.builder(
-                                          reverse: true,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          itemCount: 6,
-                                          itemBuilder: (context, index1) {
-                                            return Container(
-                                                margin: EdgeInsetsDirectional.all(10),
-                                                width: MediaQuery.of(context).size.width * 0.06,
-                                                height: 24,
-                                                color: data == 'impromptu'
-                                                    ? Colors.pinkAccent
-                                                    : data == 'Expired'
-                                                        ? Colors.grey
-                                                        : Colors.pink);
-                                            // stackWidget(
-                                            //     "trymd", context);
-                                          },
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.fromLTRB(
-                                            0,
-                                            5,
-                                            0,
-                                            0),
-                                        child: Text(
-                                          "6 AM",
-                                          style: TextStyle(
-                                            fontFamily: 'geometric sans-serif',
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }),
-                          ),
-                        ),
-                        SizedBox(height: 30),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  0, 0, 0, 0),
-                              child: Text(
-                                "VALUE OF ONE ",
-                                style: TextStyle(
-                                  fontFamily: 'geometric sans-serif',
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      if (chartData.isEmpty) const SizedBox(height: 80),
+                      if (chartData.isEmpty)
+                        Text(
+                          "No data available",
+                          style: style ??
+                              TextStyle(
+                                fontFamily: "geometric sans-serif",
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
                               ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.05,
-                              height: MediaQuery.of(context).size.width * 0.07,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFF21B000),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  0, 0, 0, 0),
-                              child: Text(
-                                "  = 10 MINS",
-                                style: TextStyle(
-                                  fontFamily: 'geometric sans-serif',
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
-                        Divider(
-                          thickness: 0.8,
-                          color: Color(0xFFDFE1E7),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5, vertical: 0),
-                          child: Column(
-                            children: [
-                              
+                      if (chartData.isEmpty) const SizedBox(height: 80),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
+                        child: SizedBox(
+                          height: columnContainersCount == 6
+                              ? MediaQuery.of(context).size.height * 0.44
+                              : columnContainersCount == 5
+                                  ? MediaQuery.of(context).size.height * 0.32
+                                  : columnContainersCount == 4
+                                      ? MediaQuery.of(context).size.height *
+                                          0.26
+                                      : columnContainersCount == 0
+                                          ? MediaQuery.of(context).size.height *
+                                              0.0
+                                          : MediaQuery.of(context).size.height *
+                                              0.23,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              physics: const ClampingScrollPhysics(),
+                              itemCount: chartData.length,
+                              itemBuilder: (context, index) {
+                                  String start = DateFormat(dateFormat ?? "h a").format(DateTime.parse(chartData[index]['start.time']));
+                                  String end = DateFormat(dateFormat ?? "h a").format(DateTime.parse(chartData[index]['end.time']));
 
-                              ListView.builder(
-                                          reverse: true,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          itemCount: 3,
-                                          itemBuilder: (context, index1) {
-                                            return 
-                                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  SizedBox(
-                                              width: 120,
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                      margin:
-                                                          EdgeInsetsDirectional.all(10),
-                                                      width: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.05,
-                                                      height:
-                                                          20,
-                                                      color: const Color(0xFFF75C1E)),
-                                                  Text(
-                                                    "Online",
-                                                  ),
-                                                ],
-                                              ),
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                      child: Text(
+                                        end,
+                                        style: style ??
+                                            TextStyle(
+                                              fontFamily:
+                                                  "geometric sans-serif",
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            SizedBox(
-                                    width: 120,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsetsDirectional.all(6),
+                                      width: MediaQuery.of(context).size.width *
+                                          0.11,
+                                      child: ListView.builder(
+                                        reverse: true,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: columnContainersCount,
+                                        itemBuilder: (context, index1) {
+                                          if (chartData[index]
+                                                                ['split_up']
+                                                            .length !=
+                                                        0) {
+                                                      try {
+                                                        return stackWidget(context,
+                                                            chartData[index]
+                                                                    ['split_up']
+                                                                [index1]);
+                                                      } catch (e) {
+                                                        return stackWidget(context);
+                                                      }
+                                                    } else {
+                                                      return Container();
+                                                    }
+                                        },
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                      child: Text(
+                                        start,
+                                        style: style ??
+                                            TextStyle(
+                                              fontFamily:
+                                                  "geometric sans-serif",
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+                        ),
+                      ),
+                      SizedBox(height: 20.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            child: Text(
+                              "VALUE OF ONE ",
+                              style: style ??
+                                  TextStyle(
+                                    fontFamily: "geometric sans-serif",
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                          Container(
+                            width: containerWidth ??
+                                MediaQuery.of(context).size.width * 0.03,
+                            height: containerHeight ??
+                                MediaQuery.of(context).size.height * 0.023,
+                            decoration: BoxDecoration(
+                              color: valueOfOne['color'],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            child: Text(
+                              "  = ${valueOfOne['time']}",
+                              style: style ??
+                                  TextStyle(
+                                    fontFamily: "geometric sans-serif",
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 0.8,
+                        color: Color(0xFFDFE1E7),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 10),
+                        child: Column(
+                          children: [
+                            GridView.builder(
+                              shrinkWrap: true,
+                              itemCount: onlineData.length,
+                              addAutomaticKeepAlives: false,
+                              addRepaintBoundaries: false,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 24,
+                                      childAspectRatio: (1 / .3),
+                                      mainAxisSpacing: 0),
+                              itemBuilder: (BuildContext context, int index) {
+                                return SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.3,
                                     child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Container(
                                             margin:
-                                                EdgeInsetsDirectional.all(10),
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.05,
-                                            height:
-                                                20,
-                                            color: const Color.fromARGB(
-                                                255, 238, 226, 59)),
+                                                const EdgeInsetsDirectional.all(
+                                                    10),
+                                            width: containerWidth ??
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.03,
+                                            height: containerHeight ??
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.023,
+                                            color: onlineData[index]['color']),
                                         Text(
-                                          "Advance",
-                                        ),
+                                          onlineData[index]['type'],
+                                          style: style ??
+                                              TextStyle(
+                                                fontFamily:
+                                                    "geometric sans-serif",
+                                                color: Colors.black,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        )
                                       ],
-                                    ),
-                                  ),
-                                ],);
-                                          },
-                                        ),
-                            ],
-                          ),
+                                    ));
+                              },
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget stackWidget(data, context) {
+  Widget stackWidget( context,[data]) {
     return Container(
         margin: EdgeInsetsDirectional.all(10),
-        width: MediaQuery.of(context).size.width * 0.06,
-        height: 24,
+        width: MediaQuery.of(context).size.width,
+        height: 30,
         color: data == 'impromptu'
             ? Colors.orange
             : data == 'Expired'
