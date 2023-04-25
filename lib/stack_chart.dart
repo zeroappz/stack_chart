@@ -4,7 +4,7 @@ export 'src/stack_chart_base.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
-class MacStackChart extends StatelessWidget {
+class MacStackChart extends StatefulWidget {
   final List<Map<String, dynamic>> chartData;
   final String chartTitle;
   final TextStyle? style;
@@ -23,15 +23,24 @@ class MacStackChart extends StatelessWidget {
       required this.valueOfOne,
       this.containerHeight,
       this.containerWidth,
-      this.dateFormat
-      })
+      this.dateFormat})
       : super(key: key);
 
+  @override
+  State<MacStackChart> createState() => _MacStackChartState();
+}
+
+class _MacStackChartState extends State<MacStackChart> {
   int columnContainersCount = 6;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    columnContainersCount = chartData.isEmpty ? 0 : 6;
+    columnContainersCount = widget.chartData.isEmpty ? 0 : 6;
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -47,14 +56,8 @@ class MacStackChart extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                   child: Text(
-                    chartTitle,
-                    style: style ??
-                        TextStyle(
-                          fontFamily: "geometric sans-serif",
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    widget.chartTitle,
+                    style: widget.style ?? defaultTxtStyle(),
                   ),
                 ),
               ],
@@ -98,19 +101,13 @@ class MacStackChart extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      if (chartData.isEmpty) const SizedBox(height: 80),
-                      if (chartData.isEmpty)
+                      if (widget.chartData.isEmpty) const SizedBox(height: 80),
+                      if (widget.chartData.isEmpty)
                         Text(
                           "No data available",
-                          style: style ??
-                              TextStyle(
-                                fontFamily: "geometric sans-serif",
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style: widget.style ?? defaultTxtStyle(),
                         ),
-                      if (chartData.isEmpty) const SizedBox(height: 80),
+                      if (widget.chartData.isEmpty) const SizedBox(height: 80),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: SizedBox(
@@ -130,10 +127,18 @@ class MacStackChart extends StatelessWidget {
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               physics: const ClampingScrollPhysics(),
-                              itemCount: chartData.length,
+                              itemCount: widget.chartData.length,
                               itemBuilder: (context, index) {
-                                  String start = DateFormat(dateFormat ?? "h a").format(DateTime.parse(chartData[index]['start.time']));
-                                  String end = DateFormat(dateFormat ?? "h a").format(DateTime.parse(chartData[index]['end.time']));
+                                String start =
+                                    DateFormat(widget.dateFormat ?? "h a")
+                                        .format(DateTime.parse(widget
+                                            .chartData[index]['start.time']
+                                            .toString()));
+                                String end =
+                                    DateFormat(widget.dateFormat ?? "h a")
+                                        .format(DateTime.parse(widget
+                                            .chartData[index]['end.time']
+                                            .toString()));
 
                                 return Column(
                                   children: [
@@ -141,14 +146,8 @@ class MacStackChart extends StatelessWidget {
                                       padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                                       child: Text(
                                         end,
-                                        style: style ??
-                                            TextStyle(
-                                              fontFamily:
-                                                  "geometric sans-serif",
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        style:
+                                            widget.style ?? defaultTxtStyle(),
                                       ),
                                     ),
                                     Container(
@@ -162,21 +161,21 @@ class MacStackChart extends StatelessWidget {
                                         physics: NeverScrollableScrollPhysics(),
                                         itemCount: columnContainersCount,
                                         itemBuilder: (context, index1) {
-                                          if (chartData[index]
-                                                                ['split_up']
-                                                            .length !=
-                                                        0) {
-                                                      try {
-                                                        return stackWidget(context,
-                                                            chartData[index]
-                                                                    ['split_up']
-                                                                [index1]);
-                                                      } catch (e) {
-                                                        return stackWidget(context);
-                                                      }
-                                                    } else {
-                                                      return Container();
-                                                    }
+                                          if (widget
+                                                  .chartData[index]['split_up']
+                                                  .length !=
+                                              0) {
+                                            try {
+                                              return stackWidget(
+                                                  context,
+                                                  widget.chartData[index]
+                                                      ['split_up'][index1]);
+                                            } catch (e) {
+                                              return stackWidget(context);
+                                            }
+                                          } else {
+                                            return Container();
+                                          }
                                         },
                                       ),
                                     ),
@@ -184,14 +183,8 @@ class MacStackChart extends StatelessWidget {
                                       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                                       child: Text(
                                         start,
-                                        style: style ??
-                                            TextStyle(
-                                              fontFamily:
-                                                  "geometric sans-serif",
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        style:
+                                            widget.style ?? defaultTxtStyle(),
                                       ),
                                     ),
                                   ],
@@ -207,35 +200,23 @@ class MacStackChart extends StatelessWidget {
                             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Text(
                               "VALUE OF ONE ",
-                              style: style ??
-                                  TextStyle(
-                                    fontFamily: "geometric sans-serif",
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              style: widget.style ?? defaultTxtStyle(),
                             ),
                           ),
                           Container(
-                            width: containerWidth ??
+                            width: widget.containerWidth ??
                                 MediaQuery.of(context).size.width * 0.03,
-                            height: containerHeight ??
+                            height: widget.containerHeight ??
                                 MediaQuery.of(context).size.height * 0.023,
                             decoration: BoxDecoration(
-                              color: valueOfOne['color'],
+                              color: widget.valueOfOne['color'],
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Text(
-                              "  = ${valueOfOne['time']}",
-                              style: style ??
-                                  TextStyle(
-                                    fontFamily: "geometric sans-serif",
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              "  = ${widget.valueOfOne['time']}",
+                              style: widget.style ?? defaultTxtStyle(),
                             ),
                           ),
                         ],
@@ -251,7 +232,7 @@ class MacStackChart extends StatelessWidget {
                           children: [
                             GridView.builder(
                               shrinkWrap: true,
-                              itemCount: onlineData.length,
+                              itemCount: widget.onlineData.length,
                               addAutomaticKeepAlives: false,
                               addRepaintBoundaries: false,
                               gridDelegate:
@@ -262,40 +243,35 @@ class MacStackChart extends StatelessWidget {
                                       mainAxisSpacing: 0),
                               itemBuilder: (BuildContext context, int index) {
                                 return SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            margin:
-                                                const EdgeInsetsDirectional.all(
-                                                    10),
-                                            width: containerWidth ??
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.03,
-                                            height: containerHeight ??
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.023,
-                                            color: onlineData[index]['color']),
-                                        Text(
-                                          onlineData[index]['type'],
-                                          style: style ??
-                                              TextStyle(
-                                                fontFamily:
-                                                    "geometric sans-serif",
-                                                color: Colors.black,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        )
-                                      ],
-                                    ));
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          margin:
+                                              const EdgeInsetsDirectional.all(
+                                                  10),
+                                          width: widget.containerWidth ??
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.03,
+                                          height: widget.containerHeight ??
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.023,
+                                          color: widget.onlineData[index]
+                                              ['color']),
+                                      Text(
+                                        widget.onlineData[index]['type'],
+                                        style:
+                                            widget.style ?? defaultTxtStyle(),
+                                      )
+                                    ],
+                                  ),
+                                );
                               },
                             ),
                           ],
@@ -312,7 +288,7 @@ class MacStackChart extends StatelessWidget {
     );
   }
 
-  Widget stackWidget( context,[data]) {
+  Widget stackWidget(context, [data]) {
     return Container(
         margin: EdgeInsetsDirectional.all(10),
         width: MediaQuery.of(context).size.width,
@@ -322,5 +298,19 @@ class MacStackChart extends StatelessWidget {
             : data == 'Expired'
                 ? Colors.grey
                 : Colors.pink);
+  }
+
+  TextStyle defaultTxtStyle() {
+    return TextStyle(
+      fontFamily: "geometric sans-serif",
+      color: Colors.black,
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

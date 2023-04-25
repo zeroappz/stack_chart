@@ -1,15 +1,17 @@
-class ChartStatus {
-  String _type;
-  Colors _color;
+import 'package:flutter/material.dart';
 
-  ChartStatus({String type, Colors color}) {
-    this._type = type;
-    this._color = color;
+class ChartStatus {
+  String? _type;
+  Colors? _color;
+
+  ChartStatus({String? type, Colors? color}) {
+    _type = type;
+    _color = color;
   }
 
-  String get type => _type;
+  String get type => _type!;
   set type(String type) => _type = type;
-  Colors get color => _color;
+  Colors get color => _color!;
   set color(Colors color) => _color = color;
 
   ChartStatus.fromJson(Map<String, dynamic> json) {
@@ -18,9 +20,9 @@ class ChartStatus {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this._type;
-    data['color'] = this._color;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = _type;
+    data['color'] = _color;
     return data;
   }
 }
