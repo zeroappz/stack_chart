@@ -23,7 +23,7 @@ class MacStackChart extends StatelessWidget {
       required this.valueOfOne,
       this.containerHeight,
       this.containerWidth,
-      required this.dateFormat
+      this.dateFormat
       })
       : super(key: key);
 
@@ -132,8 +132,8 @@ class MacStackChart extends StatelessWidget {
                               physics: const ClampingScrollPhysics(),
                               itemCount: bookedDetails.length,
                               itemBuilder: (context, index) {
-                                  String start = DateFormat(dateFormat).format(DateTime.parse(bookedDetails[index]['start.time']));
-                                  String end = DateFormat(dateFormat).format(DateTime.parse(bookedDetails[index]['end.time']));
+                                  String start = DateFormat(dateFormat ?? "h a").format(DateTime.parse(bookedDetails[index]['start.time']));
+                                  String end = DateFormat(dateFormat ?? "h a").format(DateTime.parse(bookedDetails[index]['end.time']));
 
                                 return Column(
                                   children: [
