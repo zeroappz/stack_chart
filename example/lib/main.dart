@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            MacStackChart(chartTitle:"Bookings Chart"),
+            MacStackChart(chartTitle: "Bookings Chart"),
           ],
         ),
       ),
