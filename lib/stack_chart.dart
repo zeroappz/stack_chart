@@ -131,14 +131,20 @@ class _MacStackChartState extends State<MacStackChart> {
                               itemBuilder: (context, index) {
                                 String start =
                                     DateFormat(widget.dateFormat ?? "h a")
-                                        .format(DateTime.parse(widget
-                                            .chartData[index]['start.time']
-                                            .toString()));
+                                        .format(
+                                  DateTime.parse(
+                                    widget.chartData[index]['start_time']
+                                        .toString(),
+                                  ),
+                                );
                                 String end =
                                     DateFormat(widget.dateFormat ?? "h a")
-                                        .format(DateTime.parse(widget
-                                            .chartData[index]['end.time']
-                                            .toString()));
+                                        .format(
+                                  DateTime.parse(
+                                    widget.chartData[index]['end_time']
+                                        .toString(),
+                                  ),
+                                );
 
                                 return Column(
                                   children: [
@@ -160,7 +166,7 @@ class _MacStackChartState extends State<MacStackChart> {
                                         scrollDirection: Axis.vertical,
                                         physics: NeverScrollableScrollPhysics(),
                                         itemCount: columnContainersCount,
-                                        itemBuilder: (context, index1) {
+                                        itemBuilder: (context, index) {
                                           if (widget
                                                   .chartData[index]['split_up']
                                                   .length !=
@@ -169,7 +175,7 @@ class _MacStackChartState extends State<MacStackChart> {
                                               return stackWidget(
                                                   context,
                                                   widget.chartData[index]
-                                                      ['split_up'][index1]);
+                                                      ['split_up'][index]);
                                             } catch (e) {
                                               return stackWidget(context);
                                             }
@@ -199,7 +205,7 @@ class _MacStackChartState extends State<MacStackChart> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Text(
-                              "VALUE OF ONE ",
+                              "EACH VALUE ",
                               style: widget.style ?? defaultTxtStyle(),
                             ),
                           ),
@@ -237,10 +243,11 @@ class _MacStackChartState extends State<MacStackChart> {
                               addRepaintBoundaries: false,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 24,
-                                      childAspectRatio: (1 / .3),
-                                      mainAxisSpacing: 0),
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 24,
+                                childAspectRatio: (1 / .3),
+                                mainAxisSpacing: 0,
+                              ),
                               itemBuilder: (BuildContext context, int index) {
                                 return SizedBox(
                                   width:
@@ -249,21 +256,17 @@ class _MacStackChartState extends State<MacStackChart> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Container(
-                                          margin:
-                                              const EdgeInsetsDirectional.all(
-                                                  10),
-                                          width: widget.containerWidth ??
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.03,
-                                          height: widget.containerHeight ??
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.023,
-                                          color: widget.onlineData[index]
-                                              ['color']),
+                                        margin:
+                                            const EdgeInsetsDirectional.all(10),
+                                        width: widget.containerWidth ??
+                                            MediaQuery.of(context).size.width *
+                                                0.03,
+                                        height: widget.containerHeight ??
+                                            MediaQuery.of(context).size.height *
+                                                0.023,
+                                        color: widget.onlineData[index]
+                                            ['color'],
+                                      ),
                                       Text(
                                         widget.onlineData[index]['type'],
                                         style:
@@ -293,9 +296,9 @@ class _MacStackChartState extends State<MacStackChart> {
         margin: EdgeInsetsDirectional.all(10),
         width: MediaQuery.of(context).size.width,
         height: 30,
-        color: data == 'impromptu'
+        color: data.toString().toLowerCase() == 'male'
             ? Colors.orange
-            : data == 'Expired'
+            : data.toString().toLowerCase() == 'female'
                 ? Colors.grey
                 : Colors.pink);
   }

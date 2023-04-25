@@ -5,9 +5,14 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -31,6 +36,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -41,88 +51,86 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             MacStackChart(
-              chartTitle: "Bookings Chart",
+              chartTitle: "Stacked Chart",
               dateFormat: "h a",
               chartData: const [
                 {
-                  "start.time": "2023-02-12 10:00:00",
-                  "end.time": "2023-02-12 13:00:00",
+                  "start_time": "2023-02-12 10:00:00",
+                  "end_time": "2023-02-12 13:00:00",
                   "split_up": [
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd"
+                    "male",
+                    "female",
+                    "male",
+                    "female",
+                    "male",
+                    "female"
                   ]
                 },
                 {
-                  "start.time": "2023-02-12 10:00:00",
-                  "end.time": "2023-02-12 13:00:00",
+                  "start_time": "2023-02-12 10:00:00",
+                  "end_time": "2023-02-12 13:00:00",
                   "split_up": [
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd"
+                    "male",
+                    "female",
+                    "male",
+                    "female",
+                    "male",
+                    "female"
                   ]
                 },
                 {
-                  "start.time": "2023-02-12 10:00:00",
-                  "end.time": "2023-02-12 13:00:00",
+                  "start_time": "2023-02-12 10:00:00",
+                  "end_time": "2023-02-12 13:00:00",
                   "split_up": [
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd"
+                    "male",
+                    "female",
+                    "male",
+                    "female",
+                    "male",
+                    "female"
                   ]
                 },
                 {
-                  "start.time": "2023-02-12 10:00:00",
-                  "end.time": "2023-02-12 13:00:00",
+                  "start_time": "2023-02-12 10:00:00",
+                  "end_time": "2023-02-12 13:00:00",
                   "split_up": [
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd"
+                    "male",
+                    "female",
+                    "male",
+                    "female",
+                    "male",
+                    "female"
                   ]
                 },
                 {
-                  "start.time": "2023-02-12 10:00:00",
-                  "end.time": "2023-02-12 13:00:00",
+                  "start_time": "2023-02-12 10:00:00",
+                  "end_time": "2023-02-12 13:00:00",
                   "split_up": [
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd"
+                    "male",
+                    "female",
+                    "male",
+                    "female",
+                    "male",
+                    "female"
                   ]
                 },
                 {
-                  "start.time": "2023-02-12 10:00:00",
-                  "end.time": "2023-02-12 13:00:00",
+                  "start_time": "2023-02-12 10:00:00",
+                  "end_time": "2023-02-12 13:00:00",
                   "split_up": [
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd",
-                    "impromptu",
-                    "trymd"
+                    "male",
+                    "female",
+                    "male",
+                    "female",
+                    "male",
+                    "female"
                   ]
                 },
               ],
               onlineData: const [
-                {"type": "Online", "color": Colors.red},
-                {"type": "Offline", "color": Colors.pink},
-                {"type": "WalkIn", "color": Colors.yellow},
-                {"type": "TelePhone", "color": Colors.black},
-                {"type": "Online", "color": Colors.green}
+                {"type": "Male", "color": Colors.red},
+                {"type": "Female", "color": Colors.pink},
+                {"type": "Transgender", "color": Colors.yellow},
               ],
               containerHeight: MediaQuery.of(context).size.height * 0.023,
               containerWidth: MediaQuery.of(context).size.width * 0.03,
@@ -138,5 +146,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
