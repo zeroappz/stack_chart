@@ -51,16 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 20.0,
             ),
-            MacStackChart(
-              onPressed: _incrementCounter,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            MacStackChart(),
           ],
         ),
       ),
-     
     );
   }
 }

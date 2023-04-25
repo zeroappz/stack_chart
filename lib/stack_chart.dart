@@ -3,26 +3,17 @@ library stack_chart;
 export 'src/stack_chart_base.dart';
 
 import 'package:flutter/material.dart';
-import 'package:date_format/date_format.dart';
 
 class MacStackChart extends StatelessWidget {
   List<dynamic> booked_status = [];
   // List<ChartData> data_value = [];\
-  var data = "impromptu";
-  var diffs = "10";
-  var onPressed;
-  // final Widget child;
-  // var style;
-  var indexSplitup;
 
-  dynamic time3;
-  dynamic time5;
-
-  MacStackChart(
-      {Key? key, @required this.onPressed, @required this.indexSplitup})
-      // required this.child
-      // this.style
-      : super(key: key);
+  MacStackChart({
+    Key? key,
+  })
+  // required this.child
+  // this.style
+  : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,65 +57,45 @@ class MacStackChart extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Container(
-                      height: MediaQuery.of(context).size.height * 0.58,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          color: const Color(0xFFFFFFFF),
-                          borderRadius: BorderRadius.circular(7),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFF000000).withAlpha(60),
-                              blurRadius: 6.0,
-                              spreadRadius: 0.0,
-                              offset: const Offset(
-                                0.0,
-                                3.0,
-                              ),
-                            ),
-                          ]),
-                      child: Column(children: [
+                    height: MediaQuery.of(context).size.height * 0.58,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      color: const Color(0xFFFFFFFF),
+                      borderRadius: BorderRadius.circular(7),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF000000).withAlpha(60),
+                          blurRadius: 6.0,
+                          spreadRadius: 0.0,
+                          offset: const Offset(
+                            0.0,
+                            3.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: SizedBox(
                             height: MediaQuery.of(context).size.height * 0.36,
                             child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              physics: const ClampingScrollPhysics(),
-                              itemCount: 6,
-                              itemBuilder: (context, index) {
-                                // Time
-                                // DateTime now = DateTime.now();
-                                // String formattedDate =
-                                //     DateFormat('yyyy-MM-dd').format(now);
-                                // var d1 =
-                                //     bookedStatus[index]['time'].split(' - ');
-                                // String formattedDate1 =
-                                //     "$formattedDate ${d1[0]}:00";
-                                // String formattedDate2 =
-                                //     "$formattedDate ${d1[1]}:00";
-                                // String start = DateFormat('h a')
-                                //     .format(DateTime.parse(formattedDate1));
-                                // String end = DateFormat('h a')
-                                //     .format(DateTime.parse(formattedDate2));
-                                // time3 = start;
-                                // time5 = end;
-                                // dynamic time1 =
-                                //     booked_status[index]["time"].split("-");
-                                // time3 = time1[0];
-                                // time5 = time1[1].replaceAll(" ", "");
-                                if (indexSplitup.length == 0) {
-                                  return null;
-                                } else {
-                                  return Column(children: [
-                                    Padding(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount: 6,
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    children: [
+                                      Padding(
                                         padding: EdgeInsets.fromLTRB(
                                             0,
                                             SizeConfig.blockSizeVertical! * 0.5,
                                             0,
                                             0),
                                         child: Text(
-                                          time5 ?? "",
+                                          "Data ##",
                                           style: TextStyle(
                                             fontFamily: 'geometric sans-serif',
                                             color: Colors.black,
@@ -133,57 +104,34 @@ class MacStackChart extends StatelessWidget {
                                                     1.5,
                                             fontWeight: FontWeight.bold,
                                           ),
-                                        )),
-                                    Container(
-                                      margin: EdgeInsetsDirectional.all(0),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.11,
-                                      child: ListView.builder(
-                                        reverse: true,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        physics: NeverScrollableScrollPhysics(),
-                                        itemCount: indexSplitup,
-                                        itemBuilder: (context, index1) {
-                                          // dynamic time = bookedStatus[index]
-                                          //         ['split_up'][0]["time"]
-                                          //     .split("-");
-
-                                          // String start = time.first;
-                                          // String end = time.last;
-                                          // String starttime =
-                                          //     start.replaceAll(" ", "");
-                                          // String endtime =
-                                          //     end.replaceAll(" ", "");
-                                          // DateFormat dateformate =
-                                          //     DateFormat("yyyy-MM-dd");
-                                          // var date = dateformate
-                                          //     .format(DateTime.now());
-                                          // DateTime s = DateTime.parse(
-                                          //     "$date $starttime:00");
-                                          // DateTime e = DateTime.parse(
-                                          //     "$date $endtime:00");
-                                          // Duration diff = e.difference(s);
-                                          if (indexSplitup.length != 0) {
-                                            try {
-                                              return stackWidget(6, context);
-                                            } catch (e) {
-                                              return SizedBox();
-                                            }
-                                          } else {
-                                            return null;
-                                          }
-                                        },
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
+                                      Container(
+                                        margin: EdgeInsetsDirectional.all(0),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.11,
+                                        child: ListView.builder(
+                                          reverse: true,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          itemCount: 6,
+                                          itemBuilder: (context, index1) {
+                                            return stackWidget(
+                                                "impromptu", context);
+                                          },
+                                        ),
+                                      ),
+                                      Padding(
                                         padding: EdgeInsets.fromLTRB(
                                             0,
                                             SizeConfig.blockSizeVertical! * 0.5,
                                             0,
                                             0),
                                         child: Text(
-                                          time3 ?? "",
+                                          "Data **",
                                           style: TextStyle(
                                             fontFamily: 'geometric sans-serif',
                                             color: Colors.black,
@@ -192,51 +140,51 @@ class MacStackChart extends StatelessWidget {
                                                     1.5,
                                             fontWeight: FontWeight.bold,
                                           ),
-                                        )),
-                                  ]);
-                                }
-                              },
-                            ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
                           ),
                         ),
                         Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                  padding: EdgeInsets.fromLTRB(0,
-                                      SizeConfig.blockSizeVertical! * 0, 0, 0),
-                                  child: Text(
-                                    "VALUE OF ONE ",
-                                    style: TextStyle(
-                                      fontFamily: 'geometric sans-serif',
-                                      color: Colors.black,
-                                      fontSize:
-                                          SizeConfig.blockSizeVertical! * 1.5,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.05,
-                                height:
-                                    MediaQuery.of(context).size.width * 0.07,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFF21B000),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  0, SizeConfig.blockSizeVertical! * 0, 0, 0),
+                              child: Text(
+                                "VALUE OF ONE ",
+                                style: TextStyle(
+                                  fontFamily: 'geometric sans-serif',
+                                  color: Colors.black,
+                                  fontSize: SizeConfig.blockSizeVertical! * 1.5,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Padding(
-                                  padding: EdgeInsets.fromLTRB(0,
-                                      SizeConfig.blockSizeVertical! * 0, 0, 0),
-                                  child: Text(
-                                    "  = $diffs MINS",
-                                    style: TextStyle(
-                                      fontFamily: 'geometric sans-serif',
-                                      color: Colors.black,
-                                      fontSize:
-                                          SizeConfig.blockSizeVertical! * 1.5,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )),
-                            ]),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.05,
+                              height: MediaQuery.of(context).size.width * 0.07,
+                              decoration: const BoxDecoration(
+                                color: Color(0xFF21B000),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  0, SizeConfig.blockSizeVertical! * 0, 0, 0),
+                              child: Text(
+                                "  = 10 MINS",
+                                style: TextStyle(
+                                  fontFamily: 'geometric sans-serif',
+                                  color: Colors.black,
+                                  fontSize: SizeConfig.blockSizeVertical! * 1.5,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         Divider(
                           thickness: 0.8,
                           color: Color(0xFFDFE1E7),
@@ -244,36 +192,37 @@ class MacStackChart extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 5),
-                          child: Column(children: [
-                            Row(
+                          child: Column(
+                            children: [
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SizedBox(
-                                      width:
-                                          SizeConfig.blockSizeHorizontal! * 40,
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                              margin:
-                                                  EdgeInsetsDirectional.all(10),
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.05,
-                                              height: SizeConfig
-                                                      .blockSizeVertical! *
-                                                  2.4,
-                                              color: const Color(0xFFF75C1E)),
-                                          Text(
-                                            "Online",
-                                          ),
-                                        ],
-                                      )),
+                                    width: SizeConfig.blockSizeHorizontal! * 40,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                            margin:
+                                                EdgeInsetsDirectional.all(10),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.05,
+                                            height:
+                                                SizeConfig.blockSizeVertical! *
+                                                    2.4,
+                                            color: const Color(0xFFF75C1E)),
+                                        Text(
+                                          "Online",
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                   SizedBox(
-                                      width:
-                                          SizeConfig.blockSizeHorizontal! * 40,
-                                      child: Row(children: [
+                                    width: SizeConfig.blockSizeHorizontal! * 40,
+                                    child: Row(
+                                      children: [
                                         Container(
                                             margin:
                                                 EdgeInsetsDirectional.all(10),
@@ -288,16 +237,19 @@ class MacStackChart extends StatelessWidget {
                                         Text(
                                           "Walk-In",
                                         ),
-                                      ]))
-                                ]),
-                            Row(
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SizedBox(
-                                      width:
-                                          SizeConfig.blockSizeHorizontal! * 40,
-                                      child: Row(children: [
+                                    width: SizeConfig.blockSizeHorizontal! * 40,
+                                    child: Row(
+                                      children: [
                                         Container(
                                             margin:
                                                 EdgeInsetsDirectional.all(10),
@@ -312,11 +264,13 @@ class MacStackChart extends StatelessWidget {
                                         Text(
                                           "Available",
                                         ),
-                                      ])),
+                                      ],
+                                    ),
+                                  ),
                                   SizedBox(
-                                      width:
-                                          SizeConfig.blockSizeHorizontal! * 40,
-                                      child: Row(children: [
+                                    width: SizeConfig.blockSizeHorizontal! * 40,
+                                    child: Row(
+                                      children: [
                                         Container(
                                             margin:
                                                 EdgeInsetsDirectional.all(10),
@@ -332,16 +286,19 @@ class MacStackChart extends StatelessWidget {
                                         Text(
                                           "Advance",
                                         ),
-                                      ]))
-                                ]),
-                            Row(
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SizedBox(
-                                      width:
-                                          SizeConfig.blockSizeHorizontal! * 40,
-                                      child: Row(children: [
+                                    width: SizeConfig.blockSizeHorizontal! * 40,
+                                    child: Row(
+                                      children: [
                                         Container(
                                             margin:
                                                 EdgeInsetsDirectional.all(10),
@@ -356,11 +313,13 @@ class MacStackChart extends StatelessWidget {
                                         Text(
                                           "Cancelled",
                                         ),
-                                      ])),
+                                      ],
+                                    ),
+                                  ),
                                   SizedBox(
-                                      width:
-                                          SizeConfig.blockSizeHorizontal! * 40,
-                                      child: Row(children: [
+                                    width: SizeConfig.blockSizeHorizontal! * 40,
+                                    child: Row(
+                                      children: [
                                         Container(
                                             margin:
                                                 EdgeInsetsDirectional.all(10),
@@ -375,11 +334,17 @@ class MacStackChart extends StatelessWidget {
                                         Text(
                                           "Expired",
                                         ),
-                                      ])),
-                                ])
-                          ]),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ])),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
