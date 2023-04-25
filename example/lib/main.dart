@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
             MacStackChart(
                 chartTitle: "Bookings Chart",
                 dateFormat: "h a",
-              bookedDetails: const [ 
+              chartData: const [ 
                    {"start.time": "2023-02-12 10:00:00", "end.time": "2023-02-12 13:00:00","split_up":[
                     "impromptu","trymd","impromptu","trymd","impromptu","trymd"
                    ]},
@@ -80,13 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
-                
-                
-                
-                
-                
                 ),
-               
           ],
         ),
       ),

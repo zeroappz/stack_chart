@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class MacStackChart extends StatelessWidget {
-  final List<Map<String, dynamic>> bookedDetails;
+  final List<Map<String, dynamic>> chartData;
   final String chartTitle;
   final TextStyle? style;
   final Map<String, dynamic> valueOfOne;
@@ -18,7 +18,7 @@ class MacStackChart extends StatelessWidget {
       {Key? key,
       required this.chartTitle,
       this.style,
-      required this.bookedDetails,
+      required this.chartData,
       required this.onlineData,
       required this.valueOfOne,
       this.containerHeight,
@@ -31,7 +31,7 @@ class MacStackChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    columnContainersCount = bookedDetails.isEmpty ? 0 : 6;
+    columnContainersCount = chartData.isEmpty ? 0 : 6;
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -98,8 +98,8 @@ class MacStackChart extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      if (bookedDetails.isEmpty) const SizedBox(height: 80),
-                      if (bookedDetails.isEmpty)
+                      if (chartData.isEmpty) const SizedBox(height: 80),
+                      if (chartData.isEmpty)
                         Text(
                           "No data available",
                           style: style ??
@@ -110,7 +110,7 @@ class MacStackChart extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                         ),
-                      if (bookedDetails.isEmpty) const SizedBox(height: 80),
+                      if (chartData.isEmpty) const SizedBox(height: 80),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: SizedBox(
@@ -130,10 +130,10 @@ class MacStackChart extends StatelessWidget {
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               physics: const ClampingScrollPhysics(),
-                              itemCount: bookedDetails.length,
+                              itemCount: chartData.length,
                               itemBuilder: (context, index) {
-                                  String start = DateFormat(dateFormat ?? "h a").format(DateTime.parse(bookedDetails[index]['start.time']));
-                                  String end = DateFormat(dateFormat ?? "h a").format(DateTime.parse(bookedDetails[index]['end.time']));
+                                  String start = DateFormat(dateFormat ?? "h a").format(DateTime.parse(chartData[index]['start.time']));
+                                  String end = DateFormat(dateFormat ?? "h a").format(DateTime.parse(chartData[index]['end.time']));
 
                                 return Column(
                                   children: [
@@ -162,13 +162,13 @@ class MacStackChart extends StatelessWidget {
                                         physics: NeverScrollableScrollPhysics(),
                                         itemCount: columnContainersCount,
                                         itemBuilder: (context, index1) {
-                                          if (bookedDetails[index]
+                                          if (chartData[index]
                                                                 ['split_up']
                                                             .length !=
                                                         0) {
                                                       try {
                                                         return stackWidget(context,
-                                                            bookedDetails[index]
+                                                            chartData[index]
                                                                     ['split_up']
                                                                 [index1]);
                                                       } catch (e) {
