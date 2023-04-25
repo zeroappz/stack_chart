@@ -6,25 +6,21 @@ import 'package:flutter/material.dart';
 
 class MacStackChart extends StatelessWidget {
   List<dynamic> booked_status = [];
-  // List<ChartData> data_value = [];\
-
+  final chartTitle;
+  final data = ["impromptu"];
   MacStackChart({
     Key? key,
+    this.chartTitle
   })
-  // required this.child
-  // this.style
   : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: double.infinity,
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
-      child: SingleChildScrollView(
-        child: Column(
+      child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
@@ -35,7 +31,7 @@ class MacStackChart extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                     child: Text(
-                      "Bookings & Occupancy Chart",
+                      this.chartTitle,
                     ),
                   ),
                 ],
@@ -43,9 +39,7 @@ class MacStackChart extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(
-                SizeConfig.blockSizeHorizontal! * 3,
-                SizeConfig.blockSizeVertical! * 2,
-                SizeConfig.blockSizeHorizontal! * 3,
+                30,20,30,
                 0,
               ),
               child: Material(
@@ -57,7 +51,7 @@ class MacStackChart extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.58,
+                    height: MediaQuery.of(context).size.height * 0.70,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       color: const Color(0xFFFFFFFF),
@@ -79,7 +73,7 @@ class MacStackChart extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.36,
+                            height: MediaQuery.of(context).size.height * 0.40,
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
@@ -91,26 +85,24 @@ class MacStackChart extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.fromLTRB(
                                             0,
-                                            SizeConfig.blockSizeVertical! * 0.5,
+                                            20,
                                             0,
                                             0),
                                         child: Text(
-                                          "Data ##",
+                                          "7 AM",
                                           style: TextStyle(
                                             fontFamily: 'geometric sans-serif',
                                             color: Colors.black,
-                                            fontSize:
-                                                SizeConfig.blockSizeVertical! *
-                                                    1.5,
+                                            fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ),
                                       Container(
-                                        margin: EdgeInsetsDirectional.all(0),
+                                        margin: EdgeInsetsDirectional.all(5),
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.11,
+                                                0.10,
                                         child: ListView.builder(
                                           reverse: true,
                                           shrinkWrap: true,
@@ -119,25 +111,32 @@ class MacStackChart extends StatelessWidget {
                                               NeverScrollableScrollPhysics(),
                                           itemCount: 6,
                                           itemBuilder: (context, index1) {
-                                            return stackWidget(
-                                                "impromptu", context);
+                                            return Container(
+                                                margin: EdgeInsetsDirectional.all(10),
+                                                width: MediaQuery.of(context).size.width * 0.06,
+                                                height: 24,
+                                                color: data == 'impromptu'
+                                                    ? Colors.pinkAccent
+                                                    : data == 'Expired'
+                                                        ? Colors.grey
+                                                        : Colors.pink);
+                                            // stackWidget(
+                                            //     "trymd", context);
                                           },
                                         ),
                                       ),
                                       Padding(
                                         padding: EdgeInsets.fromLTRB(
                                             0,
-                                            SizeConfig.blockSizeVertical! * 0.5,
+                                            5,
                                             0,
                                             0),
                                         child: Text(
-                                          "Data **",
+                                          "6 AM",
                                           style: TextStyle(
                                             fontFamily: 'geometric sans-serif',
                                             color: Colors.black,
-                                            fontSize:
-                                                SizeConfig.blockSizeVertical! *
-                                                    1.5,
+                                            fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -147,18 +146,19 @@ class MacStackChart extends StatelessWidget {
                                 }),
                           ),
                         ),
+                        SizedBox(height: 30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: EdgeInsets.fromLTRB(
-                                  0, SizeConfig.blockSizeVertical! * 0, 0, 0),
+                                  0, 0, 0, 0),
                               child: Text(
                                 "VALUE OF ONE ",
                                 style: TextStyle(
                                   fontFamily: 'geometric sans-serif',
                                   color: Colors.black,
-                                  fontSize: SizeConfig.blockSizeVertical! * 1.5,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -172,13 +172,13 @@ class MacStackChart extends StatelessWidget {
                             ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(
-                                  0, SizeConfig.blockSizeVertical! * 0, 0, 0),
+                                  0, 0, 0, 0),
                               child: Text(
                                 "  = 10 MINS",
                                 style: TextStyle(
                                   fontFamily: 'geometric sans-serif',
                                   color: Colors.black,
-                                  fontSize: SizeConfig.blockSizeVertical! * 1.5,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -191,15 +191,46 @@ class MacStackChart extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
+                              horizontal: 5, vertical: 0),
                           child: Column(
                             children: [
-                              Row(
+                              
+
+                              ListView.builder(
+                                          reverse: true,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          itemCount: 3,
+                                          itemBuilder: (context, index1) {
+                                            return 
+                                            Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SizedBox(
-                                    width: SizeConfig.blockSizeHorizontal! * 40,
+                                              width: 120,
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                      margin:
+                                                          EdgeInsetsDirectional.all(10),
+                                                      width: MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.05,
+                                                      height:
+                                                          20,
+                                                      color: const Color(0xFFF75C1E)),
+                                                  Text(
+                                                    "Online",
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                    width: 120,
                                     child: Row(
                                       children: [
                                         Container(
@@ -210,77 +241,7 @@ class MacStackChart extends StatelessWidget {
                                                     .width *
                                                 0.05,
                                             height:
-                                                SizeConfig.blockSizeVertical! *
-                                                    2.4,
-                                            color: const Color(0xFFF75C1E)),
-                                        Text(
-                                          "Online",
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: SizeConfig.blockSizeHorizontal! * 40,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            margin:
-                                                EdgeInsetsDirectional.all(10),
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.05,
-                                            height:
-                                                SizeConfig.blockSizeVertical! *
-                                                    2.4,
-                                            color: const Color(0xFFD9177E)),
-                                        Text(
-                                          "Walk-In",
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  SizedBox(
-                                    width: SizeConfig.blockSizeHorizontal! * 40,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            margin:
-                                                EdgeInsetsDirectional.all(10),
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.05,
-                                            height:
-                                                SizeConfig.blockSizeVertical! *
-                                                    2.4,
-                                            color: const Color(0xFF21B000)),
-                                        Text(
-                                          "Available",
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: SizeConfig.blockSizeHorizontal! * 40,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            margin:
-                                                EdgeInsetsDirectional.all(10),
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.05,
-                                            height:
-                                                SizeConfig.blockSizeVertical! *
-                                                    2.4,
+                                                20,
                                             color: const Color.fromARGB(
                                                 255, 238, 226, 59)),
                                         Text(
@@ -289,56 +250,9 @@ class MacStackChart extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  SizedBox(
-                                    width: SizeConfig.blockSizeHorizontal! * 40,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            margin:
-                                                EdgeInsetsDirectional.all(10),
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.05,
-                                            height:
-                                                SizeConfig.blockSizeVertical! *
-                                                    2.4,
-                                            color: const Color(0xFFF70000)),
-                                        Text(
-                                          "Cancelled",
+                                ],);
+                                          },
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: SizeConfig.blockSizeHorizontal! * 40,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            margin:
-                                                EdgeInsetsDirectional.all(10),
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.05,
-                                            height:
-                                                SizeConfig.blockSizeVertical! *
-                                                    2.4,
-                                            color: const Color(0xFFE2E5EC)),
-                                        Text(
-                                          "Expired",
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ],
                           ),
                         ),
@@ -350,48 +264,18 @@ class MacStackChart extends StatelessWidget {
             ),
           ],
         ),
-      ),
     );
   }
 
   Widget stackWidget(data, context) {
     return Container(
         margin: EdgeInsetsDirectional.all(10),
-        width: MediaQuery.of(context).size.width * 0.05,
-        height: 20,
+        width: MediaQuery.of(context).size.width * 0.06,
+        height: 24,
         color: data == 'impromptu'
             ? Colors.orange
             : data == 'Expired'
                 ? Colors.grey
                 : Colors.pink);
-  }
-}
-
-class SizeConfig {
-  /// Size Config is usd for loading the dynamic sizes
-  static MediaQueryData? _mediaQueryData;
-  static double? screenWidth;
-  static double? screenHeight;
-  static double? blockSizeHorizontal;
-  static double? blockSizeVertical;
-
-  static double? _safeAreaHorizontal;
-  static double? _safeAreaVertical;
-  static double? safeBlockHorizontal;
-  static double? safeBlockVertical;
-
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData!.size.width;
-    screenHeight = _mediaQueryData!.size.height;
-    blockSizeHorizontal = (screenWidth! / 100);
-    blockSizeVertical = screenHeight! / 100;
-
-    _safeAreaHorizontal =
-        _mediaQueryData!.padding.left + _mediaQueryData!.padding.right;
-    _safeAreaVertical =
-        _mediaQueryData!.padding.top + _mediaQueryData!.padding.bottom;
-    safeBlockHorizontal = (screenWidth! - _safeAreaHorizontal!) / 100;
-    safeBlockVertical = (screenHeight! - _safeAreaVertical!) / 100;
   }
 }
