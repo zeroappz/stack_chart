@@ -14,3 +14,8 @@
 * MacStackChart is complete customizable now.
 * Models are included for better user access
 * Compatible for Flutter v3.7.0 & Dart 2.19.6
+
+## 1.0.1+2
+
+* Compatible for Flutter v3.7.0 & Dart 2.19.6
+* Readme & other bug fixes

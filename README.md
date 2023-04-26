@@ -38,14 +38,8 @@ MacStackChart(
 
 ## Available plugins & packages
 
-| Name | Type | Android | iOS | Web | Windows | Linux | MacOS |    Page    |  
-|--------|-------------|:-------:|:---:|:---:|:-----:|:---------:|
-| [stack_chart](https://pub.dev/packages/stack_chart) | Package | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:|  [![pub package](https://github.com/zeroappz/stack_chart/blob/master/pub_stack_chart.svg)](https://pub.dartlang.org/packages/stack_chart)
+### Package Access & Version
+* [stack_chart](https://pub.dev/packages/stack_chart)
 
-:white_check_mark: - supported\
-:black_square_button: - not supported\
-:hammer_and_wrench: - to fix\
-:penguin: - Linux\
-:green_apple: - MacOS\
-:framed_picture: - Windows
+* [![pub package](https://github.com/zeroappz/stack_chart/blob/master/pub_stack_chart.svg)](https://pub.dartlang.org/packages/stack_chart)
 
