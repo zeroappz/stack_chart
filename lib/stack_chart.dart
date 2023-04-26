@@ -4,8 +4,12 @@ export 'src/stack_chart_base.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
+/// Creates Stack Chart
+/// [chartData], [chartLabel], [chartTitle] & [chartText] must be provided and must not be null
 class MacStackChart extends StatefulWidget {
-  MacStackChart(
+  /// Default Constructor for [MacStackChart] that process all the given information to the well designed Stack chart
+  ///
+  const MacStackChart(
       {Key? key,
       required this.chartTitle,
       this.style,
@@ -18,15 +22,35 @@ class MacStackChart extends StatefulWidget {
       this.chartBackgroundColor,
       this.dateFormat})
       : super(key: key);
+
+  /// chartData used for loading information to your chart design
   final List<ChartData> chartData;
+
+  /// chartTitle used for chart title
   final String chartTitle;
+
+  /// style used for chart text style includes fontSize, fontColor, fontWeight & much more
   final TextStyle? style;
+
+  /// chartText used for horizontal split up difference between each hour. say 10 minutes * 6 = 6 slots per hour
   final ChartText chartText;
+
+  /// chartLabel used for label representation for the data provided
   final List<ChartLabel> chartLabel;
+
+  /// containerHeight used for sample color container's height
   final double? containerHeight;
+
+  /// containerWidth used for sample color container's width
   final double? containerWidth;
+
+  /// dateFormat used for changing the Date Format (credits: intl dart package), defaults to 'h a'
   final String? dateFormat;
+
+  /// backgroundColor used for changing the chart's overall widget's background color
   final Color? backgroundColor;
+
+  /// chartBackgroundColor used for changing the chart's section background color
   final Color? chartBackgroundColor;
 
   @override
@@ -34,25 +58,25 @@ class MacStackChart extends StatefulWidget {
 }
 
 class _MacStackChartState extends State<MacStackChart> {
-  int columnContainersCount = 0;
+  int macStackCount = 0;
 
   @override
   Widget build(BuildContext context) {
     double containerOneHeight = 0.0;
     if (widget.chartData.isEmpty) {
-      columnContainersCount = 0;
+      macStackCount = 0;
     } else {
-      List bookedlength = [];
+      List chartDataList = [];
       for (var element in widget.chartData) {
-        bookedlength.add(element._splitUps!.length);
+        chartDataList.add(element._splitUps!.length);
       }
-      bookedlength.sort();
-      columnContainersCount = bookedlength[bookedlength.length - 1];
-      if (columnContainersCount == 0) {
+      chartDataList.sort();
+      macStackCount = chartDataList[chartDataList.length - 1];
+      if (macStackCount == 0) {
         containerOneHeight = MediaQuery.of(context).size.height * 0.0;
       } else {
         double two = 0.10;
-        for (int i = 0; i < columnContainersCount; i++) {
+        for (int i = 0; i < macStackCount; i++) {
           two = two + 0.035;
           containerOneHeight = MediaQuery.of(context).size.height * two;
         }
@@ -75,20 +99,14 @@ class _MacStackChartState extends State<MacStackChart> {
                   padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                   child: Text(
                     widget.chartTitle,
-                    style: widget.style ??
-                        TextStyle(
-                          fontFamily: "geometric sans-serif",
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: widget.style ?? chartTextStyle(),
                   ),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.all(20),
+            padding: const EdgeInsetsDirectional.all(20),
             child: Material(
               color: const Color(0xFFFFFFFF),
               elevation: 0,
@@ -121,13 +139,7 @@ class _MacStackChartState extends State<MacStackChart> {
                       if (widget.chartData.isEmpty)
                         Text(
                           'No data available',
-                          style: widget.style ??
-                              TextStyle(
-                                fontFamily: "geometric sans-serif",
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style: widget.style ?? chartTextStyle(),
                         ),
                       if (widget.chartData.isEmpty) const SizedBox(height: 10),
                       Padding(
@@ -140,41 +152,37 @@ class _MacStackChartState extends State<MacStackChart> {
                               physics: const ClampingScrollPhysics(),
                               itemCount: widget.chartData.length,
                               itemBuilder: (context, index) {
-                                final start =
-                                    DateFormat(widget.dateFormat ?? 'h a')
-                                        .format(DateTime.parse(
-                                            widget.chartData[index].startTime));
+                                final start = DateFormat(
+                                        widget.dateFormat ?? 'h a')
+                                    .format(DateTime.parse(
+                                        widget.chartData[index]._startTime!));
                                 final end =
                                     DateFormat(widget.dateFormat ?? 'h a')
                                         .format(DateTime.parse(
-                                            widget.chartData[index].endTime));
+                                            widget.chartData[index]._endTime!));
 
                                 return Column(
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 20, 0, 0),
                                       child: Text(
                                         end,
-                                        style: widget.style ??
-                                            TextStyle(
-                                              fontFamily:
-                                                  "geometric sans-serif",
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        style: widget.style ?? chartTextStyle(),
                                       ),
                                     ),
                                     Container(
-                                      margin: EdgeInsetsDirectional.all(6),
+                                      margin:
+                                          const EdgeInsetsDirectional.all(6),
                                       width: MediaQuery.of(context).size.width *
                                           0.11,
                                       child: ListView.builder(
                                         reverse: true,
                                         shrinkWrap: true,
                                         scrollDirection: Axis.vertical,
-                                        physics: NeverScrollableScrollPhysics(),
-                                        itemCount: columnContainersCount,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: macStackCount,
                                         itemBuilder: (context, index1) {
                                           if (widget.chartData[index]._splitUps!
                                               .isNotEmpty) {
@@ -193,17 +201,11 @@ class _MacStackChartState extends State<MacStackChart> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(0, 0, 0, 0),
                                       child: Text(
                                         start,
-                                        style: widget.style ??
-                                            TextStyle(
-                                              fontFamily:
-                                                  "geometric sans-serif",
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        style: widget.style ?? chartTextStyle(),
                                       ),
                                     ),
                                   ],
@@ -216,16 +218,10 @@ class _MacStackChartState extends State<MacStackChart> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Text(
-                              "VALUE OF ONE ",
-                              style: widget.style ??
-                                  TextStyle(
-                                    fontFamily: "geometric sans-serif",
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              "EACH STACK  ",
+                              style: widget.style ?? chartTextStyle(),
                             ),
                           ),
                           Container(
@@ -234,25 +230,19 @@ class _MacStackChartState extends State<MacStackChart> {
                             height: widget.containerHeight ??
                                 MediaQuery.of(context).size.height * 0.023,
                             decoration: BoxDecoration(
-                              color: widget.chartText.color,
+                              color: widget.chartText._color,
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Text(
-                              "  = ${widget.chartText.type}",
-                              style: widget.style ??
-                                  TextStyle(
-                                    fontFamily: "geometric sans-serif",
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              "  = ${widget.chartText._time!}",
+                              style: widget.style ?? chartTextStyle(),
                             ),
                           ),
                         ],
                       ),
-                      Divider(
+                      const Divider(
                         thickness: 0.8,
                         color: Color(0xFFDFE1E7),
                       ),
@@ -267,47 +257,40 @@ class _MacStackChartState extends State<MacStackChart> {
                               addAutomaticKeepAlives: false,
                               addRepaintBoundaries: false,
                               gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
                                       crossAxisSpacing: 24,
                                       childAspectRatio: 1 / .4),
                               itemBuilder: (context, index) {
                                 return SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            margin:
-                                                const EdgeInsetsDirectional.all(
-                                                    10),
-                                            width: widget.containerWidth ??
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.055,
-                                            height: widget.containerHeight ??
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.035,
-                                            color: widget.chartLabel[index]
-                                                .color as Color),
-                                        Text(
-                                          widget.chartLabel[index].type,
-                                          style: widget.style ??
-                                              TextStyle(
-                                                fontFamily:
-                                                    "geometric sans-serif",
-                                                color: Colors.black,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        )
-                                      ],
-                                    ));
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          margin:
+                                              const EdgeInsetsDirectional.all(
+                                                  10),
+                                          width: widget.containerWidth ??
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.055,
+                                          height: widget.containerHeight ??
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.035,
+                                          color: widget.chartLabel[index]._color
+                                              as Color),
+                                      Text(
+                                        widget.chartLabel[index]._type!,
+                                        style: widget.style ?? chartTextStyle(),
+                                      )
+                                    ],
+                                  ),
+                                );
                               },
                             ),
                           ],
@@ -324,110 +307,66 @@ class _MacStackChartState extends State<MacStackChart> {
     );
   }
 
+  // ignore: type_annotate_public_apis
   Widget stackWidget(context, [data]) {
+    assert(context != null);
+    assert(data != null);
     Color color = widget.chartBackgroundColor ?? Colors.white;
     if (data != null) {
       for (var item in widget.chartLabel) {
         String key = data.toLowerCase();
-        String itemKey = item.type.toLowerCase();
+        String itemKey = item._type!.toLowerCase();
         if (key == itemKey) {
-          color = item.color as Color;
+          color = item._color as Color;
         }
       }
     }
 
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 0.25),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 0.25),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 0.035,
         color: color);
   }
+
+  TextStyle chartTextStyle() {
+    return const TextStyle(
+      fontFamily: "geometric sans-serif",
+      color: Colors.black,
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+    );
+  }
 }
 
+/// ChartData Model collects and process the JSON based information
+/// To update the chart design
 class ChartData {
-  ChartData(String? startTime, String? endTime, List<String>? splitUp) {
-    _startTime = startTime;
-    _endTime = endTime;
-    _splitUps = splitUp;
-  }
+  final String? _startTime;
+  final String? _endTime;
+  final List<String>? _splitUps;
 
-  ChartData.fromJson(Map<String, dynamic> json) {
-    _startTime = json['start.time'];
-    _endTime = json['end.time'];
-    _splitUps = json['split_up'].cast<String>();
-  }
-  String? _startTime;
-  String? _endTime;
-  List<String>? _splitUps;
-
-  String get startTime => _startTime!;
-  set startTime(String startTime) => _startTime = startTime;
-  String get endTime => _endTime!;
-  set endTime(String endTime) => _endTime = endTime;
-  List<String> get splitUp => _splitUps!;
-  set splitUp(List<String> splitUp) => _splitUps = splitUp;
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['start.time'] = _startTime;
-    data['end.time'] = _endTime;
-    data['split_up'] = _splitUps;
-    return data;
-  }
+  /// Default Constructor for ChartData
+  ChartData(this._startTime, this._endTime, this._splitUps);
 }
 
+/// ChartLabel Model collects and process the JSON based information
+/// To update the dynamic chart Labels
 class ChartLabel {
-  ChartLabel(String? type, Colors? color) {
-    _type = type;
-    _color = color;
-  }
+  final String? _type;
+  final Color? _color;
 
-  ChartLabel.fromJson(Map<String, dynamic> json) {
-    _type = json['type'];
-    _color = json['color'];
-  }
-  String? _type;
-  Colors? _color;
-
-  String get type => _type!;
-  set type(String type) => _type = type;
-  Colors get color => _color!;
-  set color(Colors color) => _color = color;
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['type'] = _type;
-    data['color'] = _color;
-    return data;
-  }
+  /// Default Constructor for ChartLabel
+  ChartLabel(this._type, this._color);
 }
 
+/// ChartText Model collects and process the JSON based information
+/// To update the dynamic chart time difference between each stack
+/// and color for the stack to be filled
 class ChartText {
-  ChartText(String? type, Color? color) {
-    if (type != null) {
-      _type = type;
-    }
-    if (color != null) {
-      _color = color;
-    }
-  }
+  final String? _time;
+  final Color? _color;
 
-  ChartText.fromJson(Map<String, dynamic> json) {
-    _type = json['type'];
-    _color = json['color'];
-  }
-  String? _type;
-  Color? _color;
-
-  String? get type => _type;
-  set type(String? type) => _type = type;
-  Color? get color => _color;
-  set color(Color? color) => _color = color;
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['type'] = _type;
-    data['color'] = _color;
-    return data;
-  }
+  /// Default Constructor for ChartText
+  ChartText(this._time, this._color);
 }

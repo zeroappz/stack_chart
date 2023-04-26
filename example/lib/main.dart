@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Macincode Charts',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Home Page'),
     );
@@ -82,11 +82,11 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   List<ChartLabel> chartLabel = [
-    ChartLabel("Male", Colors.red as Colors?),
-    ChartLabel("Female", Colors.green as Colors?),
-    ChartLabel("Transgender", Colors.yellow as Colors?),
+    ChartLabel("Male", Colors.red),
+    ChartLabel("Female", Colors.green),
+    ChartLabel("Transgender", Colors.yellow),
   ];
-  ChartText chartText = ChartText("10 Mins", Colors.amber);
+  ChartText chartText = ChartText("10 Minutes", Colors.amber);
 
   @override
   Widget build(BuildContext context) {
@@ -105,9 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
               chartData: chartData,
               chartLabel: chartLabel,
               containerHeight: MediaQuery.of(context).size.height * 0.035,
-              containerWidth: MediaQuery.of(context).size.width * 0.055,
+              containerWidth: MediaQuery.of(context).size.width * 0.05,
               chartText: chartText,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.transparent,
               chartBackgroundColor: Colors.white,
               style: const TextStyle(
                 color: Colors.black,
