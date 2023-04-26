@@ -1,13 +1,13 @@
 name: stack_chart
 description: A flutter package for customized stacked chart use within your applications.
 
-version: 1.0.1
-# repository: https://github.com/my_org/my_repo
+version: 1.0.1+1
+repository: https://github.com/zeroappz/stack_chart
 # author: Macincode Technologies
 
-homepage: https://github.com/zeroappz/stack_chart
+homepage: https://www.macincode.com
 environment:
-  sdk: '>=2.18.2 <3.0.0'
+  sdk: ">=2.18.2 <3.0.0"
 
 # dependencies:
 #   path: ^1.8.0
