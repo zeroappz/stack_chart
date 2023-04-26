@@ -425,9 +425,9 @@ class ChartText {
   set color(Color? color) => _color = color;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this._type;
-    data['color'] = this._color;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = _type;
+    data['color'] = _color;
     return data;
   }
 }
