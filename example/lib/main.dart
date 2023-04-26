@@ -5,14 +5,9 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -35,10 +30,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  List<ChartData> chartData = [
+    ChartData("2023-02-12 10:00:00", "2023-02-12 11:00:00", [
+      "male",
+     "male","male","male","male","male","male","male","male",
+    ]),
+    ChartData("2023-02-12 11:00:00", "2023-02-12 12:00:00", [
+      "female",
+    ]),
+    ChartData("2023-02-12 12:00:00", "2023-02-12 13:00:00", [
+      "transgender",
+    ]),
+    ChartData("2023-02-12 13:00:00", "2023-02-12 14:00:00", [
+      "transgender",
+    ]),
+    ChartData("2023-02-12 14:00:00", "2023-02-12 15:00:00", [
+      "transgender","something"
+    ]),
+    ChartData("2023-02-12 15:00:00", "2023-02-12 16:00:00", [
+      "male",
+    ]),
+  ];
+
+  List<ChartText> chartText = [
+    ChartText("Male", Colors.red),
+    ChartText("Female", Colors.green),
+    ChartText("Transgender", Colors.yellow),
+  ];
+  ValueOfOne valueOfOne = ValueOfOne("10 Mins", Colors.amber);
 
   @override
   Widget build(BuildContext context) {
@@ -51,105 +70,23 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             MacStackChart(
-              chartTitle: "Stacked Chart",
+              chartTitle: "Bookings Chart",
               dateFormat: "h a",
-              chartData: const [
-                {
-                  "start_time": "2023-02-12 10:00:00",
-                  "end_time": "2023-02-12 13:00:00",
-                  "split_up": [
-                    "male",
-                    "female",
-                    "male",
-                    "female",
-                    "male",
-                    "female"
-                  ]
-                },
-                {
-                  "start_time": "2023-02-12 10:00:00",
-                  "end_time": "2023-02-12 13:00:00",
-                  "split_up": [
-                    "male",
-                    "female",
-                    "male",
-                    "female",
-                    "male",
-                    "female"
-                  ]
-                },
-                {
-                  "start_time": "2023-02-12 10:00:00",
-                  "end_time": "2023-02-12 13:00:00",
-                  "split_up": [
-                    "male",
-                    "female",
-                    "male",
-                    "female",
-                    "male",
-                    "female"
-                  ]
-                },
-                {
-                  "start_time": "2023-02-12 10:00:00",
-                  "end_time": "2023-02-12 13:00:00",
-                  "split_up": [
-                    "male",
-                    "female",
-                    "male",
-                    "female",
-                    "male",
-                    "female"
-                  ]
-                },
-                {
-                  "start_time": "2023-02-12 10:00:00",
-                  "end_time": "2023-02-12 13:00:00",
-                  "split_up": [
-                    "male",
-                    "female",
-                    "male",
-                    "female",
-                    "male",
-                    "female"
-                  ]
-                },
-                {
-                  "start_time": "2023-02-12 10:00:00",
-                  "end_time": "2023-02-12 13:00:00",
-                  "split_up": [
-                    "male",
-                    "female",
-                    "male",
-                    "female",
-                    "male",
-                    "female"
-                  ]
-                },
-              ],
-              onlineData: const [
-                {"type": "Male", "color": Colors.red},
-                {"type": "Female", "color": Colors.pink},
-                {"type": "Transgender", "color": Colors.yellow},
-              ],
-              containerHeight: MediaQuery.of(context).size.height * 0.023,
-              containerWidth: MediaQuery.of(context).size.width * 0.03,
-              valueOfOne: const {"time": "10 Mins", "color": Colors.amber},
+              chartData: chartData,
+              chartText: chartText,
+              containerHeight: MediaQuery.of(context).size.height * 0.035,
+              containerWidth: MediaQuery.of(context).size.width * 0.055,
+              valueOfOne: valueOfOne,
+              backgroundColor: Colors.white,
+              chartBackgroundColor: Colors.white,
               style: const TextStyle(
-                fontFamily: "geometric sans-serif",
                 color: Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
+                fontSize: 12,
               ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
