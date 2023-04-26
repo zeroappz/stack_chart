@@ -33,7 +33,14 @@ class _MyHomePageState extends State<MyHomePage> {
   List<ChartData> chartData = [
     ChartData("2023-02-12 10:00:00", "2023-02-12 11:00:00", [
       "male",
-     "male","male","male","male","male","male","male","male",
+      "male",
+      "male",
+      "male",
+      "male",
+      "male",
+      "male",
+      "male",
+      "male",
     ]),
     ChartData("2023-02-12 11:00:00", "2023-02-12 12:00:00", [
       "female",
@@ -44,9 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ChartData("2023-02-12 13:00:00", "2023-02-12 14:00:00", [
       "transgender",
     ]),
-    ChartData("2023-02-12 14:00:00", "2023-02-12 15:00:00", [
-      "transgender","something"
-    ]),
+    ChartData("2023-02-12 14:00:00", "2023-02-12 15:00:00",
+        ["transgender", "something"]),
     ChartData("2023-02-12 15:00:00", "2023-02-12 16:00:00", [
       "male",
     ]),

@@ -56,8 +56,8 @@ class MacStackChart extends StatelessWidget {
     }
 
     return Container(
-      decoration:  BoxDecoration(
-        color: backgroundColor??Colors.white,
+      decoration: BoxDecoration(
+        color: backgroundColor ?? Colors.white,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -96,7 +96,7 @@ class MacStackChart extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
-                    color:chartBackgroundColor?? const Color(0xFFFFFFFF),
+                    color: chartBackgroundColor ?? const Color(0xFFFFFFFF),
                     borderRadius: BorderRadius.circular(7),
                     boxShadow: [
                       BoxShadow(
@@ -319,7 +319,7 @@ class MacStackChart extends StatelessWidget {
   }
 
   Widget stackWidget(context, [data]) {
-    Color color = chartBackgroundColor?? Colors.white;
+    Color color = chartBackgroundColor ?? Colors.white;
     if (data != null) {
       for (var item in chartText) {
         String key = data.toLowerCase();
@@ -331,7 +331,7 @@ class MacStackChart extends StatelessWidget {
     }
 
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 10,vertical: 0.25),
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 0.25),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 0.035,
         color: color);
