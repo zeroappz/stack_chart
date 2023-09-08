@@ -19,3 +19,9 @@
 
 * Compatible for Flutter v3.7.0 & Dart 2.19.6
 * Readme & other bug fixes
+
+## 1.0.1+3
+
+* Compatible for Flutter v3.10.0 & Dart 3.1.1
+* Enhanced Documentation
+* Readme & other bug fixes
