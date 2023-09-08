@@ -3,5 +3,6 @@
         "Alives",
         "LTRB",
         "STEB"
-    ]
+    ],
+    "docwriter.hotkey.windows": "Alt + ."
 }

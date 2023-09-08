@@ -6,7 +6,7 @@ repository: https://github.com/zeroappz/stack_chart
 
 homepage: https://www.macincode.com
 environment:
-  sdk: ">=2.19.6 <3.0.0"
+  sdk: ">=2.19.6 <3.1.1"
 
 dependencies:
   flutter:

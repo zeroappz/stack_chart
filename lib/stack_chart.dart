@@ -60,6 +60,16 @@ class MacStackChart extends StatefulWidget {
 class _MacStackChartState extends State<MacStackChart> {
   int macStackCount = 0;
 
+  /// The function calculates the height of a container based on the number of
+  /// elements in a chart data list.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is an object that
+  /// provides access to various information about the current build context,
+  /// such as the theme, media queries, and localization.
+  ///
+  /// It is typically used to retrieve information or perform actions related
+  /// to the current state of the app.
   @override
   Widget build(BuildContext context) {
     double containerOneHeight = 0.0;
@@ -308,7 +318,20 @@ class _MacStackChartState extends State<MacStackChart> {
   }
 
   // ignore: type_annotate_public_apis
-  Widget stackWidget(context, [data]) {
+  /// The function `stackWidget` returns a container widget with a specified
+  /// color, width, and height, based on the provided context and data.
+  ///
+  /// Args:
+  ///   context: The `context` parameter is the build context of the widget.
+  /// It is typically used to access the theme, media queries,
+  /// and other properties of the widget's parent widget tree.
+  ///
+  ///   data: The `data` parameter is a variable that represents the data used
+  /// to determine the color of the widget. It is expected to be a string value.
+  ///
+  /// Returns:
+  ///   a Container widget.
+  Widget stackWidget(dynamic context, [dynamic data]) {
     assert(context != null);
     assert(data != null);
     Color color = widget.chartBackgroundColor ?? Colors.white;
@@ -357,7 +380,7 @@ class ChartLabel {
   final Color? _color;
 
   /// Default Constructor for ChartLabel
-  ChartLabel(this._type, this._color);
+  ChartLabel(this._type, this._color, {bool dynamicColors = false});
 }
 
 /// ChartText Model collects and process the JSON based information
@@ -368,5 +391,33 @@ class ChartText {
   final Color? _color;
 
   /// Default Constructor for ChartText
-  ChartText(this._time, this._color);
+  ChartText(this._time, this._color, {bool dynamicColors = false});
 }
+
+// /// DynamicChartLabel Model collects and process the JSON based information
+// /// To update the dynamic chart Labels
+// class DynamicChartLabel {
+//   final String? _type;
+
+//   /// Default Constructor for ChartLabel
+//   DynamicChartLabel(this._type);
+// }
+
+// /// DynamicChartText Model collects and process the JSON based information
+// /// To update the dynamic chart time difference between each stack
+// /// and color for the stack to be filled
+// class DynamicChartText {
+//   final String? _time;
+
+//   /// Default Constructor for ChartText
+//   DynamicChartText(this._time);
+// }
+
+  // /// Dynamic Chart Fill Colors
+  // List<DynamicChartLabel> chartDynamicColorLabel = [
+  //   DynamicChartLabel("Male"),
+  //   DynamicChartLabel("Female"),
+  //   DynamicChartLabel("Transgender"),
+  // ];
+
+  // DynamicChartText dynamicChartText = DynamicChartText("10 Minutes");

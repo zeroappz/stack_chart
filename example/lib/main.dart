@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:stack_chart/stack_chart.dart';
 
+/// The main function runs the MacStackedChart widget as the root of the application.
 void main() {
-  runApp(const MyApp());
+  runApp(const MacStackedChart());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+/// The `MacStackedChart` class is the root widget of the application.
+class MacStackedChart extends StatelessWidget {
+  const MacStackedChart({super.key});
 
   /// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Macincode Charts',
+      title: 'Macincode Stack Chart',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -22,7 +24,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   /// Default Constructor for MyHomePage Class
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -83,11 +84,23 @@ class _MyHomePageState extends State<MyHomePage> {
     ]),
   ];
 
+  /// The code `List<ChartLabel> chartLabel = [ChartLabel("Male", Colors.red),
+  /// ChartLabel("Female", Colors.green),
+  /// ChartLabel("Transgender", Colors.yellow), ];
+  /// ` is creating a list of `ChartLabel` objects.
+  ///
+  /// Each `ChartLabel` object represents a label for the stack chart
+  /// and consists of a label text and a color. In this case, the list contains
+  /// three `ChartLabel` objects with labels "Male", "Female", and "Transgender",
+  /// and corresponding colors red, green, and yellow respectively. These
+  /// labels will be used to display the legend for the stack chart.
+  /// dynamicColors: true
   List<ChartLabel> chartLabel = [
     ChartLabel("Male", Colors.red),
     ChartLabel("Female", Colors.green),
     ChartLabel("Transgender", Colors.yellow),
   ];
+
   ChartText chartText = ChartText("10 Minutes", Colors.amber);
 
   @override
@@ -102,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             MacStackChart(
-              chartTitle: "Bookings Stack Chart",
+              chartTitle: "Stack Chart",
               dateFormat: "h a",
               chartData: chartData,
               chartLabel: chartLabel,
